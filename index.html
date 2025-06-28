@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>题库搜索系统</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2em auto; padding: 0 1em; }
+    input, button { padding: 0.5em; margin: 0.5em 0; width: 100%; box-sizing: border-box; }
+    .card { border: 1px solid #ccc; padding: 1em; border-radius: 8px; margin-bottom: 1em; background: #f9f9f9; }
+    .copy-btn { margin-top: 0.5em; }
+  </style>
+</head>
+<body>
+  <h2>题库搜索系统</h2>
+  <input id="searchInput" type="text" placeholder="请输入问题关键词" />
+  <button id="searchBtn">搜索</button>
+  <div id="results"></div>
+
+  <script src="data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof data === 'undefined') {
+        document.getElementById('results').innerText = '题库数据加载失败，请检查 data.js 是否正确。';
+        return;
+      }
+
+      document.getElementById("searchBtn").addEventListener("click", () => {
+        const keyword = document.getElementById('searchInput').value.trim();
+        const results = data.filter(item => item.question.includes(keyword));
+        const container = document.getElementById('results');
+        container.innerHTML = '';
+        results.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'card';
+          div.innerHTML = `
+            <strong>问题：</strong>${item.question}<br>
+            <strong>要求：</strong>${item.requirement}<br>
+            <strong>答案：</strong><span>${item.answer}</span><br>
+            <button class="copy-btn" onclick="copyText('${item.answer.replace("'", "\'")}')">复制答案</button>
+          `;
+          container.appendChild(div);
+        });
+        if (results.length === 0) {
+          container.innerHTML = '未找到匹配的问题。';
+        }
+      });
+    });
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => alert("答案已复制！"));
+    }
+  </script>
+</body>
+</html>
