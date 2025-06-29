@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>青龙系列奖题库</title>
+  <title>青龙系列奖题库 | Blue Dragon Series Awards Q&A</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -70,16 +70,16 @@
   </style>
 </head>
 <body>
-  <h2>青龙系列奖题库</h2>
-  <input id="searchInput" type="text" placeholder="请输入问题关键词" />
-  <button id="searchBtn">搜索</button>
+  <h2>青龙系列奖题库 | Blue Dragon Series Awards Q&A</h2>
+  <input id="searchInput" type="text" placeholder="请输入问题关键词 / Enter keywords" />
+  <button id="searchBtn">搜索 / Search</button>
   <div id="results"></div>
 
   <script src="data.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       if (typeof data === 'undefined') {
-        document.getElementById('results').innerText = '题库数据加载失败，请检查 data.js 是否正确。';
+        document.getElementById('results').innerText = '题库数据加载失败，请检查 data.js 是否正确。<br>Failed to load question data. Please check data.js.';
         return;
       }
 
@@ -92,21 +92,21 @@
           const div = document.createElement('div');
           div.className = 'card';
           div.innerHTML = `
-            <strong>问题：</strong>${item.question}<br>
-            <strong>要求：</strong>${item.requirement}<br>
-            <strong>答案：</strong><span>${item.answer}</span><br>
-            <button class="copy-btn" onclick="copyText('${item.answer.replace("'", "\'")}')">复制答案</button>
+            <strong>问题 / Question:</strong>${item.question}<br>
+            <strong>要求 / Requirement:</strong>${item.requirement}<br>
+            <strong>答案 / Answer:</strong><span>${item.answer}</span><br>
+            <button class="copy-btn" onclick="copyText('${item.answer.replace("'", "\'")}')">复制答案 / Copy Answer</button>
           `;
           container.appendChild(div);
         });
         if (results.length === 0) {
-          container.innerHTML = '未找到匹配的问题。';
+          container.innerHTML = '未找到匹配的问题。<br>No matching question found.';
         }
       });
     });
 
     function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => alert("答案已复制！"));
+      navigator.clipboard.writeText(text).then(() => alert("答案已复制！Answer copied!"));
     }
   </script>
 </body>
