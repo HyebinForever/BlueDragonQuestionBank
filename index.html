@@ -179,6 +179,11 @@
           alert("无法从剪切板读取内容。Cannot read clipboard.");
         }
       });
+        function highlightNumbers(text) {
+          return text
+            .replace(/(\d+(\.\d+)?)/g, '<strong style="color: #CC0033;">$1</strong>')
+            .replace(/[一二三四五六七八九十百千万零〇壹贰叁肆伍陆柒捌玖拾佰仟亿兆]/g, '<strong style="color: #CC0033;">$&</strong>');
+        }
 
       document.getElementById("searchBtn").addEventListener("click", () => {
         const keyword = document.getElementById('searchInput').value.trim();
@@ -190,7 +195,7 @@
           div.className = 'card';
           div.innerHTML = `
             <strong>问题 / Question:</strong>${item.question}<br>
-            <strong>要求 / Requirement:</strong>${item.requirement}<br>
+            <strong>要求 / Requirement:</strong>${highlightNumbers(item.requirement)}<br>
             <strong>答案 / Answer:</strong><span style="word-wrap: break-word; white-space: pre-wrap; display: inline-block; max-width: 100%;">${item.answer}</span><br>
             <button class="copy-btn" onclick="copyText('${item.answer.replace("'", "\'")}')">复制答案 / Copy Answer</button>
           `;
