@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>青龙系列奖题库 | Blue Dragon Series Awards Q&A</title>
@@ -195,8 +196,8 @@
         }
 
       document.getElementById("searchBtn").addEventListener("click", () => {
-        const keyword = document.getElementById('searchInput').value.trim();
-        const results = data.filter(item => item.question.includes(keyword));
+      const keyword = document.getElementById('searchInput').value.trim().replace(/\s+/g, "");
+      const results = data.filter(item =>item.question.replace(/\s+/g, "").includes(keyword));
         const container = document.getElementById('results');
         container.innerHTML = '';
         results.forEach(item => {
